@@ -59,7 +59,7 @@ class MainPage:
         assert button_8.find_element(By.XPATH, "following-sibling::*").is_displayed()
         time.sleep(1)
 
-    def wait_for_load_home_page(self):
+    def wait_for_load_main_page(self):
         WebDriverWait(self.driver, 3).until(
             expected_conditions.visibility_of_element_located(self.question_title))
 

@@ -19,7 +19,7 @@ class TestMainPage:
 
     def test_weather_for_selected_settlement(self):
         self.main_page.open_main_page()
-        self.main_page.wait_for_load_home_page()
+        self.main_page.wait_for_load_main_page()
         self.main_page.check_questions_open()
 
     def test_open_order_page_from_header(self):
