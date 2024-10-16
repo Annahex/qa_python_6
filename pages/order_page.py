@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from faker import Faker
 import re
 from datetime import datetime, timedelta
+import allure
 
 
 class OrderPage:
@@ -28,12 +29,14 @@ class OrderPage:
     def __init__(self, driver):
         self.driver = driver
 
+    @allure.step('Открываем страницу заказа')
     def open_order_page(self):
         self.driver.get(self.order_url)
         WebDriverWait(self.driver, 3).until(
             expected_conditions.url_to_be(self.order_url))
 
-    def check_make_order(self):
+    @allure.step('Создаем заказ')
+    def make_order(self):
         tomorrow = datetime.now() + timedelta(days=1)
         fake = Faker("ru_RU")
         self.driver.find_element(*self.first_name_input).send_keys(fake.first_name())
@@ -52,8 +55,13 @@ class OrderPage:
         WebDriverWait(self.driver, 3).until(
             expected_conditions.visibility_of_element_located(tuple(self.confirm_button)))
         self.driver.find_element(*self.confirm_button).click()
+
+    @allure.step('Проверяем создание заказа')
+    def check_make_order(self):
         WebDriverWait(self.driver, 3).until(
             expected_conditions.visibility_of_element_located(tuple(self.success_element)))
+
+
 
 
 

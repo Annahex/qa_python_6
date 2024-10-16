@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 import time
+import allure
 
 
 class MainPage:
@@ -22,6 +23,7 @@ class MainPage:
     def __init__(self, driver):
         self.driver = driver
 
+    @allure.step('Проверка открытия вопросов о важном')
     def check_questions_open(self):
         title = self.driver.find_element(*self.question_title)
         self.driver.execute_script("arguments[0].scrollIntoView();", title)
@@ -59,19 +61,23 @@ class MainPage:
         assert button_8.find_element(By.XPATH, "following-sibling::*").is_displayed()
         time.sleep(1)
 
+    @allure.step('Ожидание загрузки страницы')
     def wait_for_load_main_page(self):
         WebDriverWait(self.driver, 3).until(
             expected_conditions.visibility_of_element_located(self.question_title))
 
+    @allure.step('Открытие главной страницы')
     def open_main_page(self):
         self.driver.get(self.main_url)
         WebDriverWait(self.driver, 3).until(
             expected_conditions.url_to_be(self.main_url))
 
+    @allure.step('Скролл к вопросам о важном')
     def scroll_to_order_button(self):
         title = self.driver.find_element(*self.order_button)
         self.driver.execute_script("arguments[0].scrollIntoView();", title)
 
+    @allure.step('Проверка открытия страницы заказа')
     def check_order_page_opens(self):
         self.driver.find_element(*self.order_button).click()
         WebDriverWait(self.driver, 3).until(
