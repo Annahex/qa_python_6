@@ -8,8 +8,8 @@ class TestOrderPage:
 
     @classmethod
     def setup_class(cls):
-        cls.driver = webdriver.Chrome()
-        cls.driver.get('https://qa-scooter.praktikum-services.ru/order')
+        cls.driver = webdriver.Firefox()
+        cls.driver.get('https://qa-scooter.praktikum-services.ru')
         cls.base_page = BasePage(cls.driver)
         cls.order_page = OrderPage(cls.driver)
 
@@ -25,4 +25,15 @@ class TestOrderPage:
         self.order_page.open_order_page()
         self.base_page.wait_for_load_base_page()
         self.base_page.check_dzen_page_opens()
+
+    def test_create_order_from_header(self):
+        self.order_page.open_order_page()
+        self.base_page.wait_for_load_base_page()
+        self.order_page.check_make_order()
+
+    def test_create_order_from_header(self):
+        self.order_page.open_order_page()
+        self.base_page.wait_for_load_base_page()
+        self.order_page.check_make_order()
+
 
