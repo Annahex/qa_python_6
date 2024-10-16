@@ -8,7 +8,7 @@ class BasePage:
     main_page_button = (By.XPATH, ".//img[@src='/assets/scooter.svg']/parent::a")
     yandex_button = (By.XPATH, ".//img[@src='/assets/ya.svg']/parent::a")
     order_url = "https://qa-scooter.praktikum-services.ru/order"
-    main_url = "https://qa-scooter.praktikum-services.ru"
+    main_url = "https://qa-scooter.praktikum-services.ru/"
     dzen_url = "https://dzen.ru/?yredirect=true"
 
     def __init__(self, driver):
@@ -30,5 +30,6 @@ class BasePage:
 
     def check_dzen_page_opens(self):
         self.driver.find_element(*self.yandex_button).click()
+        self.driver.switch_to.window(self.driver.window_handles[1])
         WebDriverWait(self.driver, 3).until(
             expected_conditions.url_to_be(self.dzen_url))
